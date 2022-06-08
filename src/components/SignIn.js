@@ -31,6 +31,7 @@ export default function SignIn(){
             let token = res.data.data.token;
             if(token){
                 localStorage.setItem('token', 'Bearer ' + token);
+                localStorage.setItem('id', res.data.data.id);
                 navigate('/');
             }
         });
