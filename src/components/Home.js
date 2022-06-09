@@ -5,8 +5,17 @@ import { BrowserRouter as Navigate, useNavigate } from 'react-router-dom';
 import { io } from 'socket.io-client'
 
 function Home(){
+    var x=0;
     const [notification, setNotification] = useState([]);
-    var [users, setUsers] = useState([]);
+    var [users, setUsers] = useState([{
+        _id: '',
+        name: '',
+        action: {
+            superLike:[],
+            like: [],
+            block:[]
+        }
+    }]);
     const [socket, setSocket] = useState(null);
 
     const navigate = useNavigate();
@@ -54,7 +63,7 @@ function Home(){
                     <h2 className='mt-4'>All</h2>
                     <div className='d-flex flex-wrap justify-content-center'>
                         { 
-                            users.map((user) => <User user={user} key={user._id} socket={socket}></User>)
+                            users?.map((user) => <User user={user} key={user._id} socket={socket}></User>)
                         }
                     </div>
                 </div>
@@ -63,7 +72,7 @@ function Home(){
                     <h2 className='mt-4 mx-auto'>Notifications</h2>
                     <div className='d-flex flex-column'>
                         {
-                            notification.map((n) => <p>{n.name} {n.type} your image</p>)
+                            notification.map((n) => <p key={x++}>{n.name} {n.type} your image</p>)
                         }
                     </div>
                 </div>

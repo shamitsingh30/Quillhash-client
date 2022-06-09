@@ -8,6 +8,20 @@ function User({user, socket}){
     const [like, setLike] = useState(false);  
     const [block, setBlock] = useState(false);  
 
+    useEffect(() => {
+        if(user.action?.like.find(el => el == localStorage.getItem('id'))){
+            setLike(true);
+        }else setLike(false);
+        
+        if(user.action?.superLike.find(el => el == localStorage.getItem('id'))){
+            setSuperLike(true);
+        }else setSuperLike(false);
+        
+        if(user.action?.block.find(el => el == localStorage.getItem('id'))){
+            setBlock(true);
+        }else setBlock(false);
+    }, [user.action])
+
     const handleNotification = (type) => {
         if(type === 'superliked') setSuperLike(!superLike);
         else if(type === 'liked') setLike(!like);
