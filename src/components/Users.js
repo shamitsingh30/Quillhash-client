@@ -9,9 +9,9 @@ function User({user, socket}){
     const [block, setBlock] = useState(false);  
 
     const handleNotification = (type) => {
-        if(type === 1) setSuperLike(!superLike);
-        else if(type === 2) setLike(!like);
-        else if(type === 3) setBlock(!block);
+        if(type === 'superliked') setSuperLike(!superLike);
+        else if(type === 'liked') setLike(!like);
+        else if(type === 'blocked') setBlock(!block);
         socket.emit("sendNotification", {
             senderName: localStorage.getItem('id'),
             receiverName: user._id,
@@ -28,9 +28,9 @@ function User({user, socket}){
             <div className="card-body">
                 <h3 className="card-title" style={{color: 'black'}}>{user.name}</h3>
                 <div className="d-flex justify-content-around">
-                    <a onClick={()=>handleNotification(1)} style={superLike ? styles.selectedIcons: styles.icons}><FontAwesomeIcon icon={faHeart}/></a>
-                    <a onClick={()=>handleNotification(2)} style={like ? styles.selectedIcons: styles.icons}><FontAwesomeIcon icon={faThumbsUp}/></a>
-                    <a onClick={()=>handleNotification(3)} style={block ? styles.selectedIcons: styles.icons}><FontAwesomeIcon icon={faBan}/></a>
+                    <a onClick={()=>handleNotification("superliked")} style={superLike ? styles.selectedIcons: styles.icons}><FontAwesomeIcon icon={faHeart}/></a>
+                    <a onClick={()=>handleNotification("liked")} style={like ? styles.selectedIcons: styles.icons}><FontAwesomeIcon icon={faThumbsUp}/></a>
+                    <a onClick={()=>handleNotification('blocked')} style={block ? styles.selectedIcons: styles.icons}><FontAwesomeIcon icon={faBan}/></a>
                 </div>
             </div>
         </div>

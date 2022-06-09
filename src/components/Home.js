@@ -5,6 +5,7 @@ import { BrowserRouter as Navigate, useNavigate } from 'react-router-dom';
 import { io } from 'socket.io-client'
 
 function Home(){
+    const [notification, setNotification] = useState([]);
     var [users, setUsers] = useState([]);
     const [socket, setSocket] = useState(null);
 
@@ -36,6 +37,8 @@ function Home(){
     useEffect(() => {
         socket?.on("getNotification", (data)=>{
             console.log(data);
+            if(data.liked) setNotification(notification => [{name: data.name, type: data.type}, ...notification]);
+            console.log(notification);
         })
     },[socket])
 
@@ -45,12 +48,25 @@ function Home(){
     
     return(
         
-        <div>
-            <h2 className='mt-4'>All</h2>
-            <div className='col d-flex flex-wrap justify-content-center'>
-                { 
-                    users.map((user) => <User user={user} key={user._id} socket={socket}></User>)
-                }
+        <div className='container-fluid'>
+            <div className='row'>
+                <div className='col-9'>
+                    <h2 className='mt-4'>All</h2>
+                    <div className='d-flex flex-wrap justify-content-center'>
+                        { 
+                            users.map((user) => <User user={user} key={user._id} socket={socket}></User>)
+                        }
+                    </div>
+                </div>
+
+                <div className='col-3 border-start'>
+                    <h2 className='mt-4 mx-auto'>Notifications</h2>
+                    <div className='d-flex flex-column'>
+                        {
+                            notification.map((n) => <p>{n.name} {n.type} your image</p>)
+                        }
+                    </div>
+                </div>
             </div>
         </div>
     )
