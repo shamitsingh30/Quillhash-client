@@ -44,7 +44,7 @@ function User({user, socket}){
                 <div className="d-flex justify-content-around">
                     <a onClick={()=>handleNotification("superliked")} style={superLike ? styles.selectedIcons: styles.icons}><FontAwesomeIcon icon={faHeart}/></a>
                     <a onClick={()=>handleNotification("liked")} style={like ? styles.selectedIcons: styles.icons}><FontAwesomeIcon icon={faThumbsUp}/></a>
-                    <a onClick={()=>handleNotification('blocked')} style={block ? styles.selectedIcons: styles.icons}><FontAwesomeIcon icon={faBan}/></a>
+                    <a onClick={()=>handleNotification("blocked")} style={block ? styles.selectedIcons: styles.icons}><FontAwesomeIcon icon={faBan}/></a>
                 </div>
             </div>
         </div>

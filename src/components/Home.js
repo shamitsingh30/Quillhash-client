@@ -45,9 +45,7 @@ function Home(){
 
     useEffect(() => {
         socket?.on("getNotification", (data)=>{
-            console.log(data);
-            if(data.liked) setNotification(notification => [{name: data.name, type: data.type}, ...notification]);
-            console.log(notification);
+            if(data.type!= 'blocked' && data.liked) setNotification(notification => [{name: data.name, type: data.type}, ...notification]);
         })
     },[socket])
 
@@ -60,7 +58,7 @@ function Home(){
         <div className='container-fluid'>
             <div className='row'>
                 <div className='col-9'>
-                    <h2 className='mt-4'>All</h2>
+                    <h2 className='mt-4'>Avengers</h2>
                     <div className='d-flex flex-wrap justify-content-center'>
                         { 
                             users?.map((user) => <User user={user} key={user._id} socket={socket}></User>)
